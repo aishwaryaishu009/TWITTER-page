@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scrollable Blocks</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            overflow-y: auto; /* Enable vertical scrolling */
+            max-height: 80vh; /* Maximum height for the container */
+        }
+
+        .flex-container {
+            display: flex;
+            scroll-behavior: smooth; /* Enable smooth scrolling */
+        }
+
+        .scrollable-block {
+            flex: 1; /* Each block takes equal width */
+        }
+
+        .yellow-block, .blue-block {
+            padding: 20px;
+            margin: 10px;
+            border-radius: 10px;
+        }
+
+        .yellow-block {
+            background-color: yellow;
+            font-size: 70px;
+        }
+
+        .blue-block {
+            background-color: blue;
+            font-size: 50px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container" onscroll="syncScroll()">
+        <div class="flex-container">
+            <div class="scrollable-block" id="yellowBlock">
+                <div class="yellow-block">
+                    <p>This is the first block with more content. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                </div>
+            </div>
+            <div class="scrollable-block" id="blueBlock">
+                <div class="blue-block">
+                    <p>This is the second block with less content. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function syncScroll() {
+            var container = document.querySelector('.container');
+            var yellowBlock = document.getElementById('yellowBlock');
+            var blueBlock = document.getElementById('blueBlock');
+
+            if (container.scrollTop + container.clientHeight >= container.scrollHeight) {
+                // If the container is scrolled to the bottom, stop scrolling blueBlock
+                blueBlock.style.overflowY = 'hidden';
+            } else {
+                // Otherwise, allow scrolling blueBlock
+                blueBlock.style.overflowY = 'auto';
+            }
+        }
+    </script>
+</body>
+</html>
